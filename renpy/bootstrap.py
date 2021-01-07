@@ -33,7 +33,6 @@ old_stdout = sys.stdout
 old_stderr = sys.stderr
 
 importlib.reload(sys)
-sys.setdefaultencoding(FSENCODING)  # @UndefinedVariable
 
 sys.stdout = old_stdout
 sys.stderr = old_stderr

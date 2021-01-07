@@ -24,7 +24,7 @@
 from __future__ import print_function
 import traceback
 import sys
-import cStringIO
+import io as cStringIO
 import platform
 import linecache
 import time
@@ -43,12 +43,6 @@ def write_utf8_traceback_list(out, l):
     ul = [ ]
 
     for filename, line, what, text in l:
-
-        # Filename is either unicode or an fsecoded string.
-        if not isinstance(filename, unicode):
-            filename = unicode(filename, FSENCODING, "replace")
-
-        # Line is a number.
 
         # Assume what is in a unicode encoding, since it is either python,
         # or comes from inside Ren'Py.
@@ -169,7 +163,7 @@ def report_exception(e, editor=True):
 
     def safe_utf8(e):
         try:
-            m = unicode(e)
+            m = str(e)
         except:
             try:
                 if len(e.args) == 0:
@@ -184,7 +178,7 @@ def report_exception(e, editor=True):
                 except:
                     m = "<Could not encode exception.>"
 
-        if isinstance(m, unicode):
+        if isinstance(m, str):
             return m.encode("utf-8", "replace")
         else:
             return m

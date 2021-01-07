@@ -28,7 +28,7 @@ import os
 import copy
 import types
 import threading
-import cPickle
+import pickle
 
 ################################################################################
 # Version information
@@ -227,7 +227,7 @@ class Backup():
             self.backup_module(m)
 
         # A pickled version of self.objects.
-        self.objects_pickle = cPickle.dumps(self.objects, cPickle.HIGHEST_PROTOCOL)
+        self.objects_pickle = pickle.dumps(self.objects, pickle.HIGHEST_PROTOCOL)
 
         self.objects = None
 
@@ -271,10 +271,10 @@ class Backup():
             # If we have a problem pickling things, uncomment the next block.
 
             try:
-                cPickle.dumps(v, cPickle.HIGHEST_PROTOCOL)
+                pickle.dumps(v, pickle.HIGHEST_PROTOCOL)
             except:
                 print("Cannot pickle", name + "." + k, "=", repr(v))
-                print("Reduce Ex is:", repr(v.__reduce_ex__(cPickle.HIGHEST_PROTOCOL)))
+                print("Reduce Ex is:", repr(v.__reduce_ex__(pickle.HIGHEST_PROTOCOL)))
 
     def restore(self):
         """
@@ -291,7 +291,7 @@ class Backup():
             for name in set(modvars.keys()) - names:
                 del modvars[name]
 
-        objects = cPickle.loads(self.objects_pickle)
+        objects = pickle.loads(self.objects_pickle)
 
         for k, v in self.variables.iteritems():
             mod, field = k

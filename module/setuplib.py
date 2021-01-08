@@ -42,10 +42,16 @@ raspi = "RENPY_RASPBERRY_PI" in os.environ
 # Is coverage enabled?
 coverage = "RENPY_COVERAGE" in os.environ
 
+# Are we doing a static build?
+static = "RENPY_STATIC" in os.environ
+
 if coverage:
     gen = "gen.coverage"
 else:
     gen = "gen"
+
+if static:
+    gen += "-static"
 
 # The cython command.
 cython_command = os.environ.get("RENPY_CYTHON", "cython")
@@ -143,9 +149,6 @@ def library(name, optional=False):
         rather than reporting an error.
     """
 
-    if android or ios:
-        return True
-
     for i in install:
 
         for ldir in [i, os.path.join(i, "lib"), os.path.join(i, "lib64"), os.path.join(i, "lib32") ]:
@@ -184,7 +187,7 @@ def cmodule(name, source, libs=[], define_macros=[], includes=[], language="c"):
     eca = list(extra_compile_args)
 
     if language == "c":
-        eca.insert(0, "-std=gnu99")
+        eca.insert(0, "-std=c11")
 
     extensions.append(distutils.core.Extension(
         name,

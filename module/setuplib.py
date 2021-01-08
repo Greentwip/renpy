@@ -50,6 +50,8 @@ else:
 # The cython command.
 cython_command = os.environ.get("RENPY_CYTHON", "cython")
 
+install = [ ]
+
 # Note that the android build sets up CFLAGS for us, and ensures
 # that necessary libraries are present. So autoconfiguration is
 # unnecessary on that platform.
@@ -70,7 +72,20 @@ if not (android or ios):
         install.insert(0, os.environ["VIRTUAL_ENV"])
 
 else:
-    install = [ ]
+    if android:
+        install = os.environ.get("RENPY_DEPS_INSTALL", "/usr")
+
+        if "::" in install:
+            install = install.split("::")
+        else:
+            install = install.split(os.pathsep)
+
+        install = [ os.path.abspath(i) for i in install ]
+
+        if "VIRTUAL_ENV" in os.environ:
+            install.insert(0, os.environ["VIRTUAL_ENV"])
+    else:
+        install = [ ]
 
 # The include and library dirs that we compile against.
 include_dirs = [ "." ]
@@ -91,9 +106,6 @@ def include(header, directory=None, optional=True):
     `optional`
         If given, returns False rather than abandoning the process.
     """
-
-    if android or ios:
-        return True
 
     for i in install:
 

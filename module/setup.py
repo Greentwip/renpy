@@ -84,8 +84,6 @@ include("GL/glew.h")
 include("pygame_sdl2/pygame_sdl2.h", directory="python{}.{}".format(sys.version_info.major, sys.version_info.minor))
 
 
-print("//////////////////// FOUND ////////////////////")
-
 library("SDL2")
 library("png")
 library("avformat")
@@ -102,7 +100,7 @@ has_libglew32 = library("glew32", optional=True)
 has_angle = windows and library("EGL", optional=True) and library("GLESv2", optional=True)
 
 if android:
-    sdl = [ 'SDL2', 'GLESv2', 'log' ]
+    sdl = [ 'SDL2', ':libGLESv2.so', ':log.so' ]
     png = 'png16'
 else:
     sdl = [ 'SDL2' ]

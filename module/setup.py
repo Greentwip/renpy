@@ -58,7 +58,7 @@ import setuplib
 from setuplib import android, ios, raspi, include, library, cython, cmodule, copyfile, find_unnecessary_gen
 
 # These control the level of optimization versus debugging.
-setuplib.extra_compile_args = [ "-Wno-unused-function" ]
+setuplib.extra_compile_args = [ "-Wno-unused-function", "-Wno-implicit-function-declaration" ]
 setuplib.extra_link_args = [ ]
 
 

@@ -61,6 +61,8 @@ from setuplib import android, ios, raspi, include, library, cython, cmodule, cop
 setuplib.extra_compile_args = [ "-Wno-unused-function" ]
 setuplib.extra_link_args = [ ]
 
+
+
 # Detect win32.
 if platform.win32_ver()[0]:
     windows = True
@@ -100,7 +102,7 @@ has_libglew32 = library("glew32", optional=True)
 has_angle = windows and library("EGL", optional=True) and library("GLESv2", optional=True)
 
 if android:
-    sdl = [ 'SDL2', ':libGLESv2.so', ':log.so' ]
+    sdl = [ 'SDL2', 'GLESv2', 'log' ]
     png = 'png16'
 else:
     sdl = [ 'SDL2' ]
@@ -203,15 +205,16 @@ else:
     gl2_only = False
     egl = "egl_none.c"
 
-cython("renpy.gl.gl", libs=glew_libs)
-cython("renpy.gl.gl1", libs=glew_libs, compile_if=not gl2_only)
-cython("renpy.gl.gldraw", libs=glew_libs, source=[ egl ])
-cython("renpy.gl.gltexture", libs=glew_libs)
-cython("renpy.gl.glenviron_shader", libs=glew_libs)
-cython("renpy.gl.glenviron_fixed", libs=glew_libs, compile_if=not gl2_only)
-cython("renpy.gl.glenviron_limited", libs=glew_libs, compile_if=not gl2_only)
-cython("renpy.gl.glrtt_copy", libs=glew_libs)
-cython("renpy.gl.glrtt_fbo", libs=glew_libs)
+if not (android or ios):
+    cython("renpy.gl.gl", libs=glew_libs)
+    cython("renpy.gl.gl1", libs=glew_libs, compile_if=not gl2_only)
+    cython("renpy.gl.gldraw", libs=glew_libs, source=[ egl ])
+    cython("renpy.gl.gltexture", libs=glew_libs)
+    cython("renpy.gl.glenviron_shader", libs=glew_libs)
+    cython("renpy.gl.glenviron_fixed", libs=glew_libs, compile_if=not gl2_only)
+    cython("renpy.gl.glenviron_limited", libs=glew_libs, compile_if=not gl2_only)
+    cython("renpy.gl.glrtt_copy", libs=glew_libs)
+    cython("renpy.gl.glrtt_fbo", libs=glew_libs)
 
 if not (android or ios):
     # renpy.angle

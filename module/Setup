@@ -1,17 +1,8 @@
 _renpy gen/_renpy.c
 _renpybidi gen/_renpybidi.c 
-_renpysteam gen/_renpysteam.cc
 renpy.aduio.renpysound gen/renpy.audio.renpysound.c
 renpy.display.accelerator gen/renpy.display.accelerator.c
 renpy.display.render gen/renpy.display.render.c
-renpy.gl.gl gen/renpy.gl.gl.c
-renpy.gl.gl1 gen/renpy.gl.gl1.c
-renpy.gl.gldraw gen/renpy.gl.gldraw.c
-renpy.gl.glenviron_fixed gen/renpy.gl.gl.glenviron_fixed 
-renpy.gl.glenviron_limited gen/renpy.gl.gl.glenviron_limited.c
-renpy.gl.glenviron_shader gen/renpy.gl.glenviron_shader.c
-renpy.gl.glrtt_copy gen/renpy.gl.glrtt_copy.c
-renpy.gl.glrtt_fbo gen/renpy.gl.glrtt_fbo.c
 renpy.parsersupport gen/renpy.parsersupport.c
 renpy.pydict gen/renpy.pydict.c
 renpy.style gen/renpy.style.c

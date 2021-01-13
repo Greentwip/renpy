@@ -49,6 +49,10 @@ fi
 
 setup "$ROOT/module/"
 
+pushd "$ROOT/pygame_sdl2"
+./run.sh
+popd
+
 if  [ "$1" = "--build" ] ; then
     echo "Ren'Py build complete."
 else

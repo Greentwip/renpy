@@ -1,6 +1,6 @@
 _renpy gen/_renpy.c
 _renpybidi gen/_renpybidi.c 
-renpy.aduio.renpysound gen/renpy.audio.renpysound.c
+renpy.audio.renpysound gen/renpy.audio.renpysound.c
 renpy.display.accelerator gen/renpy.display.accelerator.c
 renpy.display.render gen/renpy.display.render.c
 renpy.parsersupport gen/renpy.parsersupport.c

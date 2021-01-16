@@ -1,5 +1,4 @@
 _renpy gen-static/_renpy.c
-_renpybidi gen-static/_renpybidi.c 
 renpy.audio.renpysound gen-static/renpy.audio.renpysound.c
 renpy.display.accelerator gen-static/renpy.display.accelerator.c
 renpy.display.render gen-static/renpy.display.render.c

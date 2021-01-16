@@ -121,7 +121,7 @@ cython(
     [ "IMG_savepng.c", "core.c", "subpixel.c"],
     sdl + [ png, 'z', 'm' ])
 
-FRIBIDI_SOURCES = """
+'''FRIBIDI_SOURCES = """
 fribidi-src/lib/fribidi.c
 fribidi-src/lib/fribidi-arabic.c
 fribidi-src/lib/fribidi-bidi.c
@@ -146,7 +146,7 @@ cython(
         ("FRIBIDI_ENTRY", ""),
         ("HAVE_CONFIG_H", "1"),
         ])
-
+''' #sorry no arabic or hebrew support, it can't compile with Python 3
 
 cython("_renpysteam", language="c++", compile_if=steam_sdk, libs=["steam_api"])
 

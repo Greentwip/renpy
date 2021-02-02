@@ -329,6 +329,21 @@ def cython(name, source=[], libs=[], includes=[], compile_if=True, define_macros
                 "-o",
                 c_fn])
 
+            if static:
+                parent_module = '.'.join(split_name[:-1])
+                parent_module_identifier = parent_module.replace('.', '_')
+
+                with open(c_fn, 'r') as f:
+                    ccode = f.read()
+
+                with open(c_fn + ".dynamic", 'w') as f:
+                    f.write(ccode)
+
+                ccode = ccode.replace('return PyModuleDef_Init(&__pyx_moduledef);', 'return PyModule_Create(&__pyx_moduledef);')
+                
+                with open(c_fn, 'w') as f:
+                    f.write(ccode)                
+
         except subprocess.CalledProcessError as e:
             print()
             print(str(e))
